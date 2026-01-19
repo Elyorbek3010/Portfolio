@@ -1,0 +1,24 @@
+# Virtual environments
+.venv/
+
+# Environment variables (anywhere)
+.env
+.env.*
+
+# Python
+__pycache__/
+*.pyc
+
+# Django
+db.sqlite3
+media/
+
+# Frontend
+node_modules/
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/
+.DS_Store

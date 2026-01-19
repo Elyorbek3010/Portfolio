@@ -1,0 +1,7 @@
+/* Loads Tailwind into project. */
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
+
