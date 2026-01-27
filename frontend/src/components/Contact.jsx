@@ -40,25 +40,9 @@ export default function Contact() {
     }
   };
 
-  // EMAIL HANDLER (Telegram + Mobile + Desktop safe)
-  const handleEmailClick = () => {
-    if (typeof window === "undefined") return;
-
-    const email = "adkhamove@gmail.com";
-    const ua = navigator.userAgent;
-
-    if (ua.includes("Telegram")) {
-      window.open(
-        `https://mail.google.com/mail/?view=cm&fs=1&tf=cm&to=${email}&su=Contact%20from%20Portfolio`,
-        "_blank",
-        "noopener,noreferrer"
-      );
-      return;
-    }
-
-    // Default (mobile + desktop)
-    window.location.href = `mailto:${email}`;
-  };
+  // ✅ SIMPLE & RELIABLE EMAIL LINK
+  const emailLink =
+    "https://mail.google.com/mail/?view=cm&fs=1&tf=cm&to=adkhamove@gmail.com";
 
   return (
     <section
@@ -177,15 +161,17 @@ export default function Contact() {
                 💼 LinkedIn
               </a>
 
-              {/* ✅ EMAIL (CLICK HANDLER) */}
-              <button
-                onClick={handleEmailClick}
+              {/* ✅ EMAIL */}
+              <a
+                href={emailLink}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl
                            bg-gray-900/50 border border-gray-800 hover:border-blue-500
                            hover:bg-blue-500/10 transition text-sm font-medium"
               >
                 📧 Email
-              </button>
+              </a>
 
               <a
                 href="https://t.me/Adhamov_3010"
