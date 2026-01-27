@@ -40,9 +40,11 @@ export default function Contact() {
     }
   };
 
-  // ✅ SIMPLE & RELIABLE EMAIL LINK
-  const emailLink =
-    "https://mail.google.com/mail/?view=cm&fs=1&tf=cm&to=adkhamove@gmail.com";
+  // ✅ SIMPLE EMAIL HANDLER (browser-safe)
+  const handleEmailClick = () => {
+    const email = "adkhamove@gmail.com";
+    window.location.href = `mailto:${email}`;
+  };
 
   return (
     <section
@@ -162,16 +164,14 @@ export default function Contact() {
               </a>
 
               {/* ✅ EMAIL */}
-              <a
-                href={emailLink}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={handleEmailClick}
                 className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl
                            bg-gray-900/50 border border-gray-800 hover:border-blue-500
                            hover:bg-blue-500/10 transition text-sm font-medium"
               >
                 📧 Email
-              </a>
+              </button>
 
               <a
                 href="https://t.me/Adhamov_3010"
