@@ -1,22 +1,24 @@
 import { useEffect, useState } from "react";
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
+
 export default function Projects() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/projects/")
+    fetch(`${API_BASE}/api/projects/`)
       .then((res) => res.json())
       .then((data) => {
         setProjects(data.results ?? data);
         setLoading(false);
       })
-
       .catch((err) => {
         console.error("Error fetching projects:", err);
         setLoading(false);
       });
   }, []);
+
 
   return (
     <section
