@@ -16,8 +16,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.auth.models import User
+from django.http import HttpResponse
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/", include("portfolio.urls")),
 ]
+
+def create_admin(request):
+    User.objects.create_superuser(
+        username="elyorbek",
+        email="adkhamove@gmail.com",
+        password="elyor123"
+    )
+    return HttpResponse("Admin created")
+
+urlpatterns += [path("create-admin/", create_admin)]
