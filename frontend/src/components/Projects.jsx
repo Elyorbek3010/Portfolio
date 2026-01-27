@@ -8,9 +8,10 @@ export default function Projects() {
     fetch("http://127.0.0.1:8000/api/projects/")
       .then((res) => res.json())
       .then((data) => {
-        setProjects(data);
+        setProjects(data.results ?? data);
         setLoading(false);
       })
+
       .catch((err) => {
         console.error("Error fetching projects:", err);
         setLoading(false);
@@ -26,9 +27,10 @@ export default function Projects() {
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         <div className="mb-12">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-snug bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
             Featured Projects
           </h2>
+
           <p className="text-gray-400 text-lg">Some of my recent work</p>
         </div>
 
@@ -98,7 +100,7 @@ export default function Projects() {
                 <p className="text-gray-400 text-sm md:text-base leading-relaxed mb-6">
                   {project.description}
                 </p>
-                
+
                 {/* Buttons */}
                 <div className="flex gap-4 mt-4">
                   {project.live_link && (

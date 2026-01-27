@@ -10,10 +10,11 @@ export default function Contact() {
   const [status, setStatus] = useState("");
 
   const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.type === "textarea" ? "message" : e.target.type === "email" ? "email" : "name"]: e.target.value,
-    });
+    const { name, value } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -66,8 +67,9 @@ export default function Contact() {
               </label>
               <input
                 type="text"
+                name="name"
                 value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                onChange={handleChange}
                 placeholder="John Doe"
                 required
                 className="w-full p-4 rounded-xl bg-gray-900/50 backdrop-blur-sm text-white 
@@ -82,8 +84,9 @@ export default function Contact() {
               </label>
               <input
                 type="email"
+                name="email"
                 value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                onChange={handleChange}
                 placeholder="john@example.com"
                 required
                 className="w-full p-4 rounded-xl bg-gray-900/50 backdrop-blur-sm text-white 
@@ -97,10 +100,11 @@ export default function Contact() {
                 Your Message
               </label>
               <textarea
+                name="message"
                 rows="6"
                 value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-                placeholder="Tell me about your project..."
+                onChange={handleChange}
+                placeholder="Type your message here..."
                 required
                 className="w-full p-4 rounded-xl bg-gray-900/50 backdrop-blur-sm text-white 
                            border border-gray-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20
@@ -138,15 +142,38 @@ export default function Contact() {
 
           <div className="mt-12 pt-12 border-t border-gray-800">
             <p className="text-gray-400 mb-6">Or connect with me on:</p>
+            <p className="text-gray-500 text-sm mb-6">
+              Preferred contact: <span className="text-white">Telegram</span> or{" "}
+              <span className="text-white">Email</span>
+            </p>
             <div className="flex gap-4">
               {[
-                { name: "GitHub", icon: "💻", link: "#" },
-                { name: "LinkedIn", icon: "💼", link: "#" },
-                { name: "Twitter", icon: "🐦", link: "#" },
+                {
+                  name: "GitHub",
+                  icon: "💻",
+                  link: "https://github.com/Elyorbek3010",
+                },
+                {
+                  name: "LinkedIn",
+                  icon: "💼",
+                  link: "https://linkedin.com/in/elyorbek-adhamov-2891b3380",
+                },
+                {
+                  name: "Email",
+                  icon: "📧",
+                  link: "mailto:adkhamove@gmail.com",
+                },
+                {
+                  name: "Telegram",
+                  icon: "✈️",
+                  link: "https://t.me/Adhamov_3010",
+                },
               ].map((social) => (
                 <a
                   key={social.name}
                   href={social.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gray-900/50 border border-gray-800
                              hover:border-blue-500 hover:bg-blue-500/10 transition-all duration-300
                              text-sm font-medium"
