@@ -24,9 +24,7 @@ export default function Contact() {
     try {
       const res = await fetch("http://127.0.0.1:8000/api/contact/", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
 
@@ -40,6 +38,26 @@ export default function Contact() {
       console.error(err);
       setStatus("Server error.");
     }
+  };
+
+  // EMAIL HANDLER (Telegram + Mobile + Desktop safe)
+  const handleEmailClick = () => {
+    if (typeof window === "undefined") return;
+
+    const email = "adkhamove@gmail.com";
+    const ua = navigator.userAgent;
+
+    if (ua.includes("Telegram")) {
+      window.open(
+        `https://mail.google.com/mail/?view=cm&fs=1&tf=cm&to=${email}&su=Contact%20from%20Portfolio`,
+        "_blank",
+        "noopener,noreferrer"
+      );
+      return;
+    }
+
+    // Default (mobile + desktop)
+    window.location.href = `mailto:${email}`;
   };
 
   return (
@@ -137,43 +155,48 @@ export default function Contact() {
             </p>
 
             <div className="grid grid-cols-2 gap-4 sm:flex sm:flex-wrap">
-              {[
-                {
-                  name: "GitHub",
-                  icon: "💻",
-                  link: "https://github.com/Elyorbek3010",
-                },
-                {
-                  name: "LinkedIn",
-                  icon: "💼",
-                  link: "https://linkedin.com/in/elyorbek-adhamov-2891b3380",
-                },
-                {
-                  name: "Email",
-                  icon: "📧",
-                  link: "https://mail.google.com/mail/?view=cm&fs=1&to=adkhamove@gmail.com",
-                },
-                {
-                  name: "Telegram",
-                  icon: "✈️",
-                  link: "https://t.me/Adhamov_3010",
-                },
-              ].map((social) => (
-                <a
-                  key={social.name}
-                  href={social.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2
-                             px-4 py-3 sm:px-6
-                             rounded-xl bg-gray-900/50 border border-gray-800
-                             hover:border-blue-500 hover:bg-blue-500/10
-                             transition text-sm font-medium"
-                >
-                  <span className="text-xl">{social.icon}</span>
-                  <span>{social.name}</span>
-                </a>
-              ))}
+              <a
+                href="https://github.com/Elyorbek3010"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl
+                           bg-gray-900/50 border border-gray-800 hover:border-blue-500
+                           hover:bg-blue-500/10 transition text-sm font-medium"
+              >
+                💻 GitHub
+              </a>
+
+              <a
+                href="https://linkedin.com/in/elyorbek-adhamov-2891b3380"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl
+                           bg-gray-900/50 border border-gray-800 hover:border-blue-500
+                           hover:bg-blue-500/10 transition text-sm font-medium"
+              >
+                💼 LinkedIn
+              </a>
+
+              {/* ✅ EMAIL (CLICK HANDLER) */}
+              <button
+                onClick={handleEmailClick}
+                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl
+                           bg-gray-900/50 border border-gray-800 hover:border-blue-500
+                           hover:bg-blue-500/10 transition text-sm font-medium"
+              >
+                📧 Email
+              </button>
+
+              <a
+                href="https://t.me/Adhamov_3010"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl
+                           bg-gray-900/50 border border-gray-800 hover:border-blue-500
+                           hover:bg-blue-500/10 transition text-sm font-medium"
+              >
+                ✈️ Telegram
+              </a>
             </div>
           </div>
         </div>
