@@ -24,12 +24,3 @@ urlpatterns = [
     path("api/", include("portfolio.urls")),
 ]
 
-def create_admin(request):
-    User.objects.create_superuser(
-        username="elyorbek",
-        email="adkhamove@gmail.com",
-        password="elyor123"
-    )
-    return HttpResponse("Admin created")
-
-urlpatterns += [path("create-admin/", create_admin)]
