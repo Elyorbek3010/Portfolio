@@ -151,7 +151,7 @@ export default function Contact() {
                 {
                   name: "Email",
                   icon: "📧",
-                  link: "mailto:adkhamove@gmail.com",
+                  link: "https://mail.google.com/mail/?view=cm&fs=1&to=adkhamove@gmail.com",
                 },
                 {
                   name: "Telegram",
