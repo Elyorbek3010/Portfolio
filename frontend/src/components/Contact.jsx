@@ -47,7 +47,7 @@ export default function Contact() {
       id="contact"
       className="min-h-screen bg-black text-white pt-24 pb-16 relative overflow-hidden"
     >
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/10 rounded-full filter blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         <div className="mb-12">
@@ -61,8 +61,8 @@ export default function Contact() {
 
         <div className="max-w-2xl">
           <form className="space-y-6" onSubmit={handleSubmit}>
-            <div className="group">
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+            <div>
+              <label className="block text-sm text-gray-300 mb-2">
                 Your Name
               </label>
               <input
@@ -70,16 +70,16 @@ export default function Contact() {
                 name="name"
                 value={form.name}
                 onChange={handleChange}
-                placeholder="John Doe"
                 required
-                className="w-full p-4 rounded-xl bg-gray-900/50 backdrop-blur-sm text-white 
-                           border border-gray-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20
-                           transition-all duration-300 outline-none text-sm md:text-base"
+                placeholder="John Doe"
+                className="w-full p-4 rounded-xl bg-gray-900/50 border border-gray-800
+                           focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20
+                           outline-none transition text-sm md:text-base"
               />
             </div>
 
-            <div className="group">
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+            <div>
+              <label className="block text-sm text-gray-300 mb-2">
                 Email Address
               </label>
               <input
@@ -87,16 +87,16 @@ export default function Contact() {
                 name="email"
                 value={form.email}
                 onChange={handleChange}
-                placeholder="john@example.com"
                 required
-                className="w-full p-4 rounded-xl bg-gray-900/50 backdrop-blur-sm text-white 
-                           border border-gray-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20
-                           transition-all duration-300 outline-none text-sm md:text-base"
+                placeholder="john@example.com"
+                className="w-full p-4 rounded-xl bg-gray-900/50 border border-gray-800
+                           focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20
+                           outline-none transition text-sm md:text-base"
               />
             </div>
 
-            <div className="group">
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+            <div>
+              <label className="block text-sm text-gray-300 mb-2">
                 Your Message
               </label>
               <textarea
@@ -104,35 +104,23 @@ export default function Contact() {
                 rows="6"
                 value={form.message}
                 onChange={handleChange}
-                placeholder="Type your message here..."
                 required
-                className="w-full p-4 rounded-xl bg-gray-900/50 backdrop-blur-sm text-white 
-                           border border-gray-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20
-                           transition-all duration-300 outline-none resize-none text-sm md:text-base"
+                placeholder="Type your message here..."
+                className="w-full p-4 rounded-xl bg-gray-900/50 border border-gray-800
+                           focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20
+                           outline-none transition resize-none text-sm md:text-base"
               />
             </div>
 
             <button
               type="submit"
-              className="group relative w-full sm:w-auto px-8 py-4 rounded-xl text-base font-medium
-                         bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700
-                         transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/50
+              className="w-full sm:w-auto px-8 py-4 rounded-xl font-medium
+                         bg-gradient-to-r from-blue-500 to-purple-600
+                         hover:from-blue-600 hover:to-purple-700
+                         transition transform hover:scale-105
                          flex items-center justify-center gap-2"
             >
-              <span>Send Message</span>
-              <svg
-                className="w-5 h-5 transform group-hover:translate-x-1 transition-transform"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M14 5l7 7m0 0l-7 7m7-7H3"
-                />
-              </svg>
+              Send Message →
             </button>
           </form>
 
@@ -140,13 +128,15 @@ export default function Contact() {
             <p className="mt-4 text-sm text-gray-400">{status}</p>
           )}
 
+          {/* SOCIAL LINKS */}
           <div className="mt-12 pt-12 border-t border-gray-800">
-            <p className="text-gray-400 mb-6">Or connect with me on:</p>
+            <p className="text-gray-400 mb-2">Or connect with me on:</p>
             <p className="text-gray-500 text-sm mb-6">
               Preferred contact: <span className="text-white">Telegram</span> or{" "}
               <span className="text-white">Email</span>
             </p>
-            <div className="flex gap-4">
+
+            <div className="grid grid-cols-2 gap-4 sm:flex sm:flex-wrap">
               {[
                 {
                   name: "GitHub",
@@ -174,9 +164,11 @@ export default function Contact() {
                   href={social.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gray-900/50 border border-gray-800
-                             hover:border-blue-500 hover:bg-blue-500/10 transition-all duration-300
-                             text-sm font-medium"
+                  className="flex items-center justify-center gap-2
+                             px-4 py-3 sm:px-6
+                             rounded-xl bg-gray-900/50 border border-gray-800
+                             hover:border-blue-500 hover:bg-blue-500/10
+                             transition text-sm font-medium"
                 >
                   <span className="text-xl">{social.icon}</span>
                   <span>{social.name}</span>
