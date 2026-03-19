@@ -153,19 +153,4 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-import django
-from django.contrib.auth import get_user_model
-
-try:
-    django.setup()
-    User = get_user_model()
-
-    if not User.objects.filter(username="elyorbek").exists():
-        User.objects.create_superuser(
-            username="elyorbek",
-            email="elyorbek@gmail.com",
-            password="elyor123",
-        )
-except Exception:
-    pass
 
