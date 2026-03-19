@@ -164,7 +164,7 @@ try:
         User.objects.create_superuser(
             username="elyorbek",
             email="elyorbek@gmail.com",
-            password="12345678",
+            password="elyor123",
         )
 except Exception:
     pass
