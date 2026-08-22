@@ -40,7 +40,7 @@ export default function Contact() {
     }
   };
 
-  // ✅ SIMPLE EMAIL HANDLER (browser-safe)
+  // SIMPLE EMAIL HANDLER (browser-safe)
   const handleEmailClick = () => {
     const email = "adkhamove@gmail.com";
     window.location.href = `mailto:${email}`;

@@ -37,7 +37,7 @@ export default function Projects() {
         </div>
 
         {/* Loading */}
-        {loading && <p className="text-gray-400">Loading projects...</p>}
+        {loading && <p className="text-gray-400">Loading projects... (server may take few seconds to wake up)</p>}
 
         {/* Empty */}
         {!loading && projects.length === 0 && (
