@@ -20,13 +20,24 @@ export default function Projects() {
       });
   }, []);
 
+  const getProjectIcon = (project) => {
+    const text = (project.title + " " + project.description).toLowerCase();
+    if (text.includes("react")) return "⚛️";
+    if (text.includes("laravel")) return "🔥";
+    if (text.includes("django") || text.includes("python")) return "🐍";
+    if (text.includes("vue")) return "🟩";
+    if (text.includes("node")) return "🟢";
+    return "📁";
+  };
+
   return (
     <section id="projects" className="py-24 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-6xl mx-auto px-6">
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
           className="mb-12 text-center md:text-left"
         >
           <h2 className="text-3xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
@@ -35,39 +46,49 @@ export default function Projects() {
           <p className="text-gray-600 dark:text-gray-400 text-lg">Some of my recent work</p>
         </motion.div>
 
-        {loading && <p className="text-gray-500">Loading projects...</p>}
-        {!loading && projects.length === 0 && <p className="text-gray-500">No projects yet.</p>}
+        {loading && <p className="text-gray-500 text-center">Loading projects...</p>}
+        {!loading && projects.length === 0 && <p className="text-gray-500 text-center">No projects yet.</p>}
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: index * 0.1, duration: 0.6, type: "spring", stiffness: 100 }}
+              whileHover={{ y: -10 }}
               onClick={() => window.open(project.live_link || project.github_link, "_blank", "noreferrer")}
-              className="flex flex-col cursor-pointer bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden shadow-sm hover:shadow-xl transition-all hover:-translate-y-1"
+              className="group flex flex-col cursor-pointer bg-white dark:bg-gray-800 rounded-3xl border border-gray-200 dark:border-gray-700 overflow-hidden shadow-md hover:shadow-2xl transition-all"
             >
               {project.image_url ? (
-                <div className="w-full h-48 overflow-hidden bg-gray-100 dark:bg-gray-900">
+                <div className="w-full h-48 overflow-hidden bg-gray-100 dark:bg-gray-900 relative">
                   <img 
                     src={project.image_url} 
                     alt={project.title} 
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                   />
+                  <div className="absolute top-4 right-4 bg-white/80 dark:bg-black/80 backdrop-blur-md rounded-full w-10 h-10 flex items-center justify-center text-xl shadow-lg border border-white/20">
+                    {getProjectIcon(project)}
+                  </div>
                 </div>
               ) : (
-                <div className="w-full h-48 bg-gray-100 dark:bg-gray-900 flex items-center justify-center text-5xl">
-                   📁
+                <div className="w-full h-48 bg-gray-100 dark:bg-gray-900 flex items-center justify-center text-6xl relative overflow-hidden">
+                   <div className="absolute inset-0 bg-blue-500/5 group-hover:bg-blue-500/10 transition-colors"></div>
+                   <motion.div 
+                     whileHover={{ rotate: 12, scale: 1.1 }} 
+                     transition={{ type: "spring" }}
+                   >
+                     {getProjectIcon(project)}
+                   </motion.div>
                 </div>
               )}
 
               <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-500">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-500 transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm mb-6 flex-grow">
+                <p className="text-gray-600 dark:text-gray-400 text-sm mb-6 flex-grow leading-relaxed">
                   {project.description}
                 </p>
 

@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { useState } from "react";
 
 export default function Contact() {
@@ -53,7 +54,7 @@ export default function Contact() {
     >
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
 
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
+      <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.6 }} className="max-w-6xl mx-auto px-6 relative z-10">
         <div className="mb-12">
           <h2 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
             Get In Touch
