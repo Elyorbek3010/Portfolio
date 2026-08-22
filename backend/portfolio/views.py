@@ -17,19 +17,25 @@ class ContactCreateAPIView(generics.CreateAPIView):
     serializer_class = ContactMessageSerializer
 
     def perform_create(self, serializer):
+
         message = serializer.save()
 
-
-        send_mail(
-            subject=f"New contact message from {message.name}",
-            message=f"""
+        try:
+            send_mail(
+                subject=f"New contact message from {message.name}",
+                message=f"""
 Name: {message.name}
 Email: {message.email}
 
 Message:
 {message.message}
-            """,
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[settings.DEFAULT_FROM_EMAIL],
-            fail_silently=False,
-        )
+                """,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[settings.DEFAULT_FROM_EMAIL],
+                fail_silently=False,
+            )
+        except Exception as e:
+            # Print the error so it shows in Render logs, but don't crash the request!
+            # If it crashes, Render load balancers return a 502 without CORS headers, 
+            # causing the browser to show a CORS error instead of the real error.
+            print(f"Failed to send email: {e}")
