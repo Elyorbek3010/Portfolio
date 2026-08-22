@@ -2,33 +2,20 @@ import { motion } from 'framer-motion';
 import { useState } from "react";
 
 export default function Contact() {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState("");
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus("Sending...");
-
     try {
       const res = await fetch("http://127.0.0.1:8000/api/contact/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-
       if (res.ok) {
         setStatus("Message sent successfully!");
         setForm({ name: "", email: "", message: "" });
@@ -42,152 +29,99 @@ export default function Contact() {
   };
 
   const handleEmailClick = () => {
-    const email = "adkhamove@gmail.com";
-    window.location.href = `mailto:${email}`;
+    window.location.href = `mailto:adkhamove@gmail.com`;
   };
 
   return (
-    <section
-      id="contact"
-      className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-white pt-24 pb-16 relative overflow-hidden transition-colors duration-300"
-    >
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
-
+    <section id="contact" className="py-24 bg-gray-50 dark:bg-[#111] text-gray-900 dark:text-white transition-colors duration-300">
       <motion.div 
-        initial={{ opacity: 0, y: 50 }} 
+        initial={{ opacity: 0, y: 20 }} 
         whileInView={{ opacity: 1, y: 0 }} 
         viewport={{ once: true, margin: "-100px" }} 
         transition={{ duration: 0.6 }} 
-        className="max-w-6xl mx-auto px-6 relative z-10"
+        className="max-w-4xl mx-auto px-6"
       >
-        <div className="mb-12">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+        <div className="mb-12 text-center md:text-left">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white tracking-tight">
             Get In Touch
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 text-lg">
-            Let's build something amazing together
+          <p className="text-gray-500 dark:text-gray-400 text-lg">
+            Have a project in mind or want to collaborate? Feel free to reach out.
           </p>
         </div>
 
-        <div className="max-w-2xl">
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Your Name
-              </label>
-              <input
-                type="text"
-                name="name"
-                value={form.name}
-                onChange={handleChange}
-                required
-                placeholder="John Doe"
-                className="w-full p-4 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700
-                           focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20
-                           outline-none transition text-sm md:text-base text-gray-900 dark:text-white"
-              />
-            </div>
+        <div className="grid md:grid-cols-2 gap-12">
+          <div>
+            <form className="space-y-4" onSubmit={handleSubmit}>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Name</label>
+                <input
+                  type="text" name="name" value={form.name} onChange={handleChange} required
+                  placeholder="John Doe"
+                  className="w-full p-3 rounded-lg bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-white/10
+                             focus:border-blue-500 focus:ring-1 focus:ring-blue-500
+                             outline-none transition text-sm"
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Email Address
-              </label>
-              <input
-                type="email"
-                name="email"
-                value={form.email}
-                onChange={handleChange}
-                required
-                placeholder="john@example.com"
-                className="w-full p-4 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700
-                           focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20
-                           outline-none transition text-sm md:text-base text-gray-900 dark:text-white"
-              />
-            </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                <input
+                  type="email" name="email" value={form.email} onChange={handleChange} required
+                  placeholder="john@example.com"
+                  className="w-full p-3 rounded-lg bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-white/10
+                             focus:border-blue-500 focus:ring-1 focus:ring-blue-500
+                             outline-none transition text-sm"
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Your Message
-              </label>
-              <textarea
-                name="message"
-                rows="6"
-                value={form.message}
-                onChange={handleChange}
-                required
-                placeholder="Type your message here..."
-                className="w-full p-4 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700
-                           focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20
-                           outline-none transition resize-none text-sm md:text-base text-gray-900 dark:text-white"
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold text-white
-                         bg-gradient-to-r from-blue-600 to-purple-600
-                         hover:from-blue-500 hover:to-purple-500
-                         transition transform hover:-translate-y-1 hover:shadow-lg
-                         flex items-center justify-center gap-2"
-            >
-              Send Message →
-            </button>
-          </form>
-
-          {status && (
-            <p className="mt-4 text-sm font-medium text-blue-600 dark:text-blue-400">{status}</p>
-          )}
-
-          {/* SOCIAL LINKS */}
-          <div className="mt-12 pt-12 border-t border-gray-200 dark:border-gray-800">
-            <p className="text-gray-600 dark:text-gray-400 mb-2">Or connect with me on:</p>
-            <p className="text-gray-500 text-sm mb-6">
-              Preferred contact: <span className="font-semibold text-gray-900 dark:text-white">Telegram</span> or{" "}
-              <span className="font-semibold text-gray-900 dark:text-white">Email</span>
-            </p>
-
-            <div className="grid grid-cols-2 gap-4 sm:flex sm:flex-wrap">
-              <a
-                href="https://github.com/Elyorbek3010"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl
-                           bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 hover:border-blue-500
-                           hover:bg-blue-50 dark:hover:bg-blue-500/10 transition text-sm font-medium"
-              >
-                💻 GitHub
-              </a>
-
-              <a
-                href="https://linkedin.com/in/elyorbek-adhamov-2891b3380"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl
-                           bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 hover:border-blue-500
-                           hover:bg-blue-50 dark:hover:bg-blue-500/10 transition text-sm font-medium"
-              >
-                💼 LinkedIn
-              </a>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Message</label>
+                <textarea
+                  name="message" rows="5" value={form.message} onChange={handleChange} required
+                  placeholder="Your message..."
+                  className="w-full p-3 rounded-lg bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-white/10
+                             focus:border-blue-500 focus:ring-1 focus:ring-blue-500
+                             outline-none transition resize-none text-sm"
+                />
+              </div>
 
               <button
-                onClick={handleEmailClick}
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl
-                           bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 hover:border-blue-500
-                           hover:bg-blue-50 dark:hover:bg-blue-500/10 transition text-sm font-medium"
+                type="submit"
+                className="w-full py-3 rounded-lg text-sm font-semibold text-white
+                           bg-gray-900 hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200
+                           transition-colors shadow-sm"
               >
-                📧 Email
+                Send Message
               </button>
+            </form>
+            {status && <p className="mt-4 text-sm font-medium text-blue-600 dark:text-blue-400">{status}</p>}
+          </div>
 
-              <a
-                href="https://t.me/Adhamov_3010"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl
-                           bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 hover:border-blue-500
-                           hover:bg-blue-50 dark:hover:bg-blue-500/10 transition text-sm font-medium"
-              >
-                ✈️ Telegram
+          <div className="flex flex-col justify-center">
+            <h3 className="text-xl font-bold mb-6">Connect with me</h3>
+            
+            <div className="space-y-4">
+              <a href="https://github.com/Elyorbek3010" target="_blank" rel="noreferrer" 
+                 className="flex items-center gap-3 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                <span className="text-xl">💻</span> GitHub
               </a>
+              <a href="https://linkedin.com/in/elyorbek-adhamov-2891b3380" target="_blank" rel="noreferrer"
+                 className="flex items-center gap-3 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                <span className="text-xl">💼</span> LinkedIn
+              </a>
+              <button onClick={handleEmailClick} 
+                 className="flex items-center gap-3 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                <span className="text-xl">📧</span> Email (adkhamove@gmail.com)
+              </button>
+              <a href="https://t.me/Adhamov_3010" target="_blank" rel="noreferrer"
+                 className="flex items-center gap-3 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                <span className="text-xl">✈️</span> Telegram
+              </a>
+            </div>
+            
+            <div className="mt-12 pt-8 border-t border-gray-200 dark:border-white/10 text-sm text-gray-500">
+              © {new Date().getFullYear()} Elyorbek Adhamov. All rights reserved.
             </div>
           </div>
         </div>

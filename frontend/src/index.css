@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
 @variant dark (&:where(.dark, .dark *));
 
 html {
@@ -6,5 +8,7 @@ html {
 }
 
 body {
-  @apply bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100 transition-colors duration-300;
+  font-family: 'Inter', sans-serif;
+  @apply bg-white text-gray-900 dark:bg-[#0a0a0a] dark:text-gray-100 transition-colors duration-300;
+  -webkit-font-smoothing: antialiased;
 }
