@@ -16,6 +16,15 @@ class ContactCreateAPIView(generics.CreateAPIView):
     queryset = ContactMessage.objects.all()
     serializer_class = ContactMessageSerializer
 
+    def post(self, request, *args, **kwargs):
+        from rest_framework.response import Response
+        import traceback
+        try:
+            return super().post(request, *args, **kwargs)
+        except Exception as e:
+            error_details = traceback.format_exc()
+            return Response({"error": str(e), "traceback": error_details}, status=500)
+
     def perform_create(self, serializer):
 
         message = serializer.save()
