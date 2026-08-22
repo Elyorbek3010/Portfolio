@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion';
+
 export default function Skills() {
   const skills = [
     // Frameworks
@@ -27,69 +29,58 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className="min-h-screen bg-gradient-to-b from-black to-gray-900 text-white pt-24 pb-16"
+      className="min-h-screen bg-gradient-to-b from-black to-gray-900 text-white pt-24 pb-16 overflow-hidden"
     >
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
 
         {/* Header */}
-        <div className="mb-12">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-16"
+        >
           <h2 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
             Skills & Technologies
           </h2>
           <p className="text-gray-400 text-lg">
             Tools and frameworks I work with
           </p>
-        </div>
+        </motion.div>
 
-        {/* ONE unified grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-          {skills.map((skill, index) => (
-            <div
-              key={skill.name}
-              className="group relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 rounded-2xl
-                         border border-gray-700/50 hover:border-gray-600
-                         backdrop-blur-sm transition-all duration-300
-                         hover:scale-105 hover:shadow-xl hover:shadow-blue-500/20"
-              style={{ animation: `fadeInUp 0.5s ease-out ${index * 0.08}s both` }}
-            >
-              {/* Category badge */}
-              <div className="absolute top-3 right-3 text-[10px] px-2 py-0.5 rounded-full 
-                              bg-white/10 text-gray-300 backdrop-blur">
-                {skill.category}
-              </div>
-
-              {/* Hover glow */}
+        {/* Infinite Scroll Marquee */}
+        <div className="relative w-full flex overflow-hidden mask-image-linear group py-4">
+          <div className="flex animate-marquee space-x-6 shrink-0 group-hover:[animation-play-state:paused]">
+            {[...skills, ...skills, ...skills].map((skill, index) => (
               <div
-                className={`absolute inset-0 bg-gradient-to-br ${skill.color} opacity-0 
-                            group-hover:opacity-10 rounded-2xl transition-opacity duration-300`}
-              />
-
-              <div className="relative z-10">
-                <div className="text-4xl mb-3 transform transition-transform 
-                                group-hover:scale-110 group-hover:rotate-6">
+                key={`${skill.name}-${index}`}
+                className="w-48 h-48 bg-gray-800/30 backdrop-blur-xl rounded-2xl border border-gray-700/50 
+                           p-6 flex flex-col items-center justify-center transition-all duration-300
+                           hover:bg-gray-800/60 hover:scale-105 hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/20"
+              >
+                <div className="text-5xl mb-4 transform transition-transform group-hover:scale-110 group-hover:-rotate-6">
                   {skill.icon}
                 </div>
-                <h3 className="text-base md:text-lg font-semibold text-white 
-                               group-hover:text-blue-400 transition-colors">
-                  {skill.name}
-                </h3>
+                <h3 className="text-lg font-semibold text-gray-200 group-hover:text-white transition-colors">{skill.name}</h3>
+                <span className="text-xs text-gray-500 mt-2">{skill.category}</span>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Animations */}
       <style>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+        .mask-image-linear {
+          mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+          -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+        }
+        @keyframes marquee {
+          from { transform: translateX(0); }
+          to { transform: translateX(-33.33%); }
+        }
+        .animate-marquee {
+          animation: marquee 25s linear infinite;
         }
       `}</style>
     </section>
