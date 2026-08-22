@@ -20,23 +20,24 @@ class ContactCreateAPIView(generics.CreateAPIView):
 
         message = serializer.save()
 
-        # Only attempt to send email if the SMTP credentials are actually configured
-        if getattr(settings, 'EMAIL_HOST_USER', None):
-            try:
-                send_mail(
-                    subject=f"New contact message from {message.name}",
-                    message=f"""
-Name: {message.name}
-Email: {message.email}
+        # Render Free Tier blocks outbound SMTP ports (587), causing the socket to hang for 30s.
+        # We must run this in a background thread so the HTTP response can return immediately.
+        import threading
 
-Message:
-{message.message}
-                    """,
-                    from_email=settings.DEFAULT_FROM_EMAIL,
-                    recipient_list=[settings.DEFAULT_FROM_EMAIL],
-                    fail_silently=True,
-                )
-            except Exception as e:
-                print(f"Failed to send email: {e}")
-        else:
-            print("Skipping email notification: EMAIL_HOST_USER is not configured in environment variables.")
+        def send_email_async():
+            if getattr(settings, 'EMAIL_HOST_USER', None):
+                try:
+                    send_mail(
+                        subject=f"New contact message from {message.name}",
+                        message=f"Name: {message.name}\nEmail: {message.email}\n\nMessage:\n{message.message}",
+                        from_email=settings.DEFAULT_FROM_EMAIL,
+                        recipient_list=[settings.DEFAULT_FROM_EMAIL],
+                        fail_silently=True,
+                    )
+                except Exception as e:
+                    print(f"Async email failed: {e}")
+
+        # Start the thread and don't wait for it to finish
+        email_thread = threading.Thread(target=send_email_async)
+        email_thread.daemon = True
+        email_thread.start()
