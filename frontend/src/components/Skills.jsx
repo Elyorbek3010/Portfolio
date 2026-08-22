@@ -2,87 +2,63 @@ import { motion } from 'framer-motion';
 
 export default function Skills() {
   const skills = [
-    // Frameworks
-    { name: "React", icon: "⚛️", color: "from-blue-400 to-cyan-400", category: "Frameworks" },
-    { name: "Django", icon: "🐍", color: "from-green-400 to-emerald-500", category: "Frameworks" },
-    { name: "DRF", icon: "📡", color: "from-green-500 to-teal-500", category: "Frameworks" },
-    { name: "FastAPI", icon: "⚡", color: "from-emerald-400 to-green-600", category: "Frameworks" },
-    { name: "Laravel", icon: "🔥", color: "from-red-500 to-orange-500", category: "Frameworks" },
-
-    // Styling
-    { name: "Tailwind CSS", icon: "🎨", color: "from-cyan-400 to-blue-500", category: "Styling" },
-
-    // Databases
-    { name: "PostgreSQL", icon: "🐘", color: "from-blue-500 to-indigo-500", category: "Databases" },
-    { name: "MySQL", icon: "🗄️", color: "from-orange-400 to-yellow-500", category: "Databases" },
-
-    // Infrastructure
-    { name: "Redis", icon: "⚡", color: "from-red-400 to-red-600", category: "Infrastructure" },
-    { name: "Celery", icon: "⏳", color: "from-green-400 to-green-600", category: "Infrastructure" },
-    { name: "Kafka", icon: "📊", color: "from-gray-400 to-gray-600", category: "Infrastructure" },
-
-    // Tools
-    { name: "Docker", icon: "🐳", color: "from-blue-400 to-blue-600", category: "Tools" },
-    { name: "Git", icon: "📦", color: "from-orange-400 to-red-500", category: "Tools" },
+    { name: "React", icon: "⚛️", category: "Frontend" },
+    { name: "JavaScript", icon: "💛", category: "Frontend" },
+    { name: "Tailwind", icon: "🎨", category: "Frontend" },
+    { name: "Django", icon: "🐍", category: "Backend" },
+    { name: "DRF", icon: "📡", category: "Backend" },
+    { name: "FastAPI", icon: "⚡", category: "Backend" },
+    { name: "Laravel", icon: "🔥", category: "Backend" },
+    { name: "PostgreSQL", icon: "🐘", category: "Database" },
+    { name: "MySQL", icon: "🗄️", category: "Database" },
+    { name: "Redis", icon: "⚡", category: "Infra" },
+    { name: "Celery", icon: "⏳", category: "Infra" },
+    { name: "Docker", icon: "🐳", category: "Tools" },
+    { name: "Git", icon: "📦", category: "Tools" },
   ];
 
   return (
-    <section
-      id="skills"
-      className="min-h-screen bg-gradient-to-b from-black to-gray-900 text-white pt-24 pb-16 overflow-hidden"
-    >
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-
-        {/* Header */}
+    <section id="skills" className="py-24 bg-white dark:bg-black transition-colors duration-300 relative">
+      <div className="max-w-6xl mx-auto px-6">
+        
         <motion.div 
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-16"
+          className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-            Skills & Technologies
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
+            My <span className="text-blue-600 dark:text-blue-400">Skills</span>
           </h2>
-          <p className="text-gray-400 text-lg">
-            Tools and frameworks I work with
+          <p className="text-gray-600 dark:text-gray-400 text-lg">
+            A comprehensive list of technologies I use
           </p>
         </motion.div>
 
-        {/* Infinite Scroll Marquee */}
-        <div className="relative w-full flex overflow-hidden mask-image-linear group py-4">
-          <div className="flex animate-marquee space-x-6 shrink-0 group-hover:[animation-play-state:paused]">
-            {[...skills, ...skills, ...skills].map((skill, index) => (
-              <div
-                key={`${skill.name}-${index}`}
-                className="w-48 h-48 bg-gray-800/30 backdrop-blur-xl rounded-2xl border border-gray-700/50 
-                           p-6 flex flex-col items-center justify-center transition-all duration-300
-                           hover:bg-gray-800/60 hover:scale-105 hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/20"
-              >
-                <div className="text-5xl mb-4 transform transition-transform group-hover:scale-110 group-hover:-rotate-6">
-                  {skill.icon}
-                </div>
-                <h3 className="text-lg font-semibold text-gray-200 group-hover:text-white transition-colors">{skill.name}</h3>
-                <span className="text-xs text-gray-500 mt-2">{skill.category}</span>
+        {/* Clean Dense Grid instead of Marquee */}
+        <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+          {skills.map((skill, index) => (
+            <motion.div
+              key={skill.name}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.05 }}
+              whileHover={{ y: -5 }}
+              className="flex items-center gap-3 px-6 py-4 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 
+                         rounded-xl shadow-sm hover:shadow-md hover:border-blue-300 dark:hover:border-blue-500/50 
+                         transition-all cursor-default"
+            >
+              <span className="text-2xl">{skill.icon}</span>
+              <div>
+                <h3 className="font-semibold text-gray-900 dark:text-gray-100 leading-tight">{skill.name}</h3>
+                <span className="text-xs text-gray-500 dark:text-gray-400">{skill.category}</span>
               </div>
-            ))}
-          </div>
+            </motion.div>
+          ))}
         </div>
-      </div>
 
-      <style>{`
-        .mask-image-linear {
-          mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-          -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-        }
-        @keyframes marquee {
-          from { transform: translateX(0); }
-          to { transform: translateX(-33.33%); }
-        }
-        .animate-marquee {
-          animation: marquee 25s linear infinite;
-        }
-      `}</style>
+      </div>
     </section>
   );
 }

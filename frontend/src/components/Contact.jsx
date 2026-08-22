@@ -49,7 +49,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="min-h-screen bg-black text-white pt-24 pb-16 relative overflow-hidden"
+      className="min-h-screen bg-black text-gray-900 dark:text-white pt-24 pb-16 relative overflow-hidden"
     >
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
 
@@ -58,7 +58,7 @@ export default function Contact() {
           <h2 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
             Get In Touch
           </h2>
-          <p className="text-gray-400 text-lg">
+          <p className="text-gray-600 dark:text-gray-400 text-lg">
             Let's build something amazing together
           </p>
         </div>
@@ -66,7 +66,7 @@ export default function Contact() {
         <div className="max-w-2xl">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
-              <label className="block text-sm text-gray-300 mb-2">
+              <label className="block text-sm text-gray-700 dark:text-gray-300 mb-2">
                 Your Name
               </label>
               <input
@@ -76,14 +76,14 @@ export default function Contact() {
                 onChange={handleChange}
                 required
                 placeholder="John Doe"
-                className="w-full p-4 rounded-xl bg-gray-900/50 border border-gray-800
+                className="w-full p-4 rounded-xl bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700/50 border border-gray-800
                            focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20
                            outline-none transition text-sm md:text-base"
               />
             </div>
 
             <div>
-              <label className="block text-sm text-gray-300 mb-2">
+              <label className="block text-sm text-gray-700 dark:text-gray-300 mb-2">
                 Email Address
               </label>
               <input
@@ -93,14 +93,14 @@ export default function Contact() {
                 onChange={handleChange}
                 required
                 placeholder="john@example.com"
-                className="w-full p-4 rounded-xl bg-gray-900/50 border border-gray-800
+                className="w-full p-4 rounded-xl bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700/50 border border-gray-800
                            focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20
                            outline-none transition text-sm md:text-base"
               />
             </div>
 
             <div>
-              <label className="block text-sm text-gray-300 mb-2">
+              <label className="block text-sm text-gray-700 dark:text-gray-300 mb-2">
                 Your Message
               </label>
               <textarea
@@ -110,7 +110,7 @@ export default function Contact() {
                 onChange={handleChange}
                 required
                 placeholder="Type your message here..."
-                className="w-full p-4 rounded-xl bg-gray-900/50 border border-gray-800
+                className="w-full p-4 rounded-xl bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700/50 border border-gray-800
                            focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20
                            outline-none transition resize-none text-sm md:text-base"
               />
@@ -129,15 +129,15 @@ export default function Contact() {
           </form>
 
           {status && (
-            <p className="mt-4 text-sm text-gray-400">{status}</p>
+            <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">{status}</p>
           )}
 
           {/* SOCIAL LINKS */}
           <div className="mt-12 pt-12 border-t border-gray-800">
-            <p className="text-gray-400 mb-2">Or connect with me on:</p>
+            <p className="text-gray-600 dark:text-gray-400 mb-2">Or connect with me on:</p>
             <p className="text-gray-500 text-sm mb-6">
-              Preferred contact: <span className="text-white">Telegram</span> or{" "}
-              <span className="text-white">Email</span>
+              Preferred contact: <span className="text-gray-900 dark:text-white">Telegram</span> or{" "}
+              <span className="text-gray-900 dark:text-white">Email</span>
             </p>
 
             <div className="grid grid-cols-2 gap-4 sm:flex sm:flex-wrap">
@@ -146,7 +146,7 @@ export default function Contact() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl
-                           bg-gray-900/50 border border-gray-800 hover:border-blue-500
+                           bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700/50 border border-gray-800 hover:border-blue-500
                            hover:bg-blue-500/10 transition text-sm font-medium"
               >
                 💻 GitHub
@@ -157,7 +157,7 @@ export default function Contact() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl
-                           bg-gray-900/50 border border-gray-800 hover:border-blue-500
+                           bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700/50 border border-gray-800 hover:border-blue-500
                            hover:bg-blue-500/10 transition text-sm font-medium"
               >
                 💼 LinkedIn
@@ -167,7 +167,7 @@ export default function Contact() {
               <button
                 onClick={handleEmailClick}
                 className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl
-                           bg-gray-900/50 border border-gray-800 hover:border-blue-500
+                           bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700/50 border border-gray-800 hover:border-blue-500
                            hover:bg-blue-500/10 transition text-sm font-medium"
               >
                 📧 Email
@@ -178,7 +178,7 @@ export default function Contact() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl
-                           bg-gray-900/50 border border-gray-800 hover:border-blue-500
+                           bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700/50 border border-gray-800 hover:border-blue-500
                            hover:bg-blue-500/10 transition text-sm font-medium"
               >
                 ✈️ Telegram
