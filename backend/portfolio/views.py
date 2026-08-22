@@ -20,22 +20,23 @@ class ContactCreateAPIView(generics.CreateAPIView):
 
         message = serializer.save()
 
-        try:
-            send_mail(
-                subject=f"New contact message from {message.name}",
-                message=f"""
+        # Only attempt to send email if the SMTP credentials are actually configured
+        if getattr(settings, 'EMAIL_HOST_USER', None):
+            try:
+                send_mail(
+                    subject=f"New contact message from {message.name}",
+                    message=f"""
 Name: {message.name}
 Email: {message.email}
 
 Message:
 {message.message}
-                """,
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[settings.DEFAULT_FROM_EMAIL],
-                fail_silently=False,
-            )
-        except Exception as e:
-            # Print the error so it shows in Render logs, but don't crash the request!
-            # If it crashes, Render load balancers return a 502 without CORS headers, 
-            # causing the browser to show a CORS error instead of the real error.
-            print(f"Failed to send email: {e}")
+                    """,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[settings.DEFAULT_FROM_EMAIL],
+                    fail_silently=True,
+                )
+            except Exception as e:
+                print(f"Failed to send email: {e}")
+        else:
+            print("Skipping email notification: EMAIL_HOST_USER is not configured in environment variables.")
